@@ -14,25 +14,49 @@ namespace WayBankClient.service
         public event Action OnCuentasActualizadas;
         public event Action OnMovimientosActualizados;
         private System.Threading.Timer pollingTimer;
-        
+        private bool estaProcesando = false;
+
+
         
         private ServicePeticiones()
         {
-            var options = new RestClientOptions("http://localhost:8080/cuentas");
+            var options = new RestClientOptions("http://localhost:8080");
             client = new RestClient(options);
-            
-            pollingTimer = new System.Threading.Timer(PollingCallback, null, 2000, 2000);
+
+            if (IsServerAlive())
+            {
+                pollingTimer = new System.Threading.Timer(PollingCallback, null, 2000, 2000);
+            }
+        }
+
+        private bool IsServerAlive()
+        {
+            try
+            {
+                var req = new RestRequest("cuentas/healthcheck", Method.Get);
+                var resp = client.Execute(req);
+                return resp.IsSuccessful;
+            }
+            catch { return false; }
         }
 
         private void PollingCallback(object state)
         {
+            if (estaProcesando) return; 
+
             try
             {
+                estaProcesando = true;
                 NotificarCambios();
             }
-            catch
+            catch (Exception ex)
             {
                 
+                Console.WriteLine("Error de conexión: " + ex.Message);
+            }
+            finally
+            {
+                estaProcesando = false; 
             }
         }
 
@@ -176,13 +200,20 @@ namespace WayBankClient.service
 
         public List<MovimientoDto> ListarTodosMovimientos()
         {
-            var request =
-                new RestRequest("/movimientos", Method.Get);
+            var request = new RestRequest("movimientos", Method.Get);
 
-            var response =
-                client.Get<List<MovimientoDto>>(request);
-
-            return response ?? new List<MovimientoDto>();
+            try
+            {
+                var response = client.Get<List<MovimientoDto>>(request);
+                return response ?? new List<MovimientoDto>();
+            }
+            catch (Exception ex) // capturar excepción de red
+            {
+                // registrar/log o mostrar mensaje amigable
+                MessageBox.Show("No se pudo conectar con el servidor: " + ex.Message,
+                    "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new List<MovimientoDto>();
+            }
         }
 
         public List<MovimientoDto> ListarMovimientos(int numeroCuenta)
