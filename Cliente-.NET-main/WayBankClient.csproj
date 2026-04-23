@@ -168,6 +168,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Vista\GuiListarMovimientos1.resx">
+      <DependentUpon>GuiListarMovimientos1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Vista\GuiMovimientos1.resx">
       <DependentUpon>GuiMovimientos1.cs</DependentUpon>
     </EmbeddedResource>

@@ -76,6 +76,7 @@ namespace WayBankClient.Vista
                 MessageBox.Show("Movimiento agregado correctamente.", "Éxito",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnBuscar_Click(sender, e);
+                servicio.NotificarCambios();
                 ListarMovimientos();
                 txtMonto.Clear();
             }

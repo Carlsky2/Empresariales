@@ -19,6 +19,24 @@ namespace WayBankClient
         {
             InitializeComponent();
             service = ServicePeticiones.GetInstance();
+            ((ServicePeticiones)service).OnCuentasActualizadas += RecargarTabla;
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            ((ServicePeticiones)service).OnCuentasActualizadas -= RecargarTabla;
+            base.OnFormClosed(e);
+        }
+
+        private void RecargarTabla()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(RecargarTabla));
+                return;
+            }
+
+            CargarCuentas();
         }
 
         private void GuiListarAhorros_Load(object sender, EventArgs e)

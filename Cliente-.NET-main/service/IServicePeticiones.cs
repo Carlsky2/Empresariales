@@ -20,5 +20,6 @@ namespace WayBankClient.service
         List<CuentaAhorrosDto> FiltrarCuentas(string titular, string estado);
         bool AgregarMovimiento(int numeroCuenta, double monto, string tipo);
         List<MovimientoDto> ListarMovimientos(int numeroCuenta);
+        void NotificarCambios();
     }
 }

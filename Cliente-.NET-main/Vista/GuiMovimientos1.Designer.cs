@@ -39,46 +39,50 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.dgvMovimientos = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
             this.SuspendLayout();
             // 
             // txtNumero
             // 
-            this.txtNumero.Location = new System.Drawing.Point(100, 47);
+            this.txtNumero.Location = new System.Drawing.Point(150, 72);
+            this.txtNumero.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(120, 20);
+            this.txtNumero.Size = new System.Drawing.Size(178, 26);
             this.txtNumero.TabIndex = 2;
             // 
             // txtTitular
             // 
-            this.txtTitular.Location = new System.Drawing.Point(100, 77);
+            this.txtTitular.Location = new System.Drawing.Point(150, 118);
+            this.txtTitular.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTitular.Name = "txtTitular";
             this.txtTitular.ReadOnly = true;
-            this.txtTitular.Size = new System.Drawing.Size(250, 20);
+            this.txtTitular.Size = new System.Drawing.Size(373, 26);
             this.txtTitular.TabIndex = 4;
             // 
             // txtSaldo
             // 
-            this.txtSaldo.Location = new System.Drawing.Point(100, 107);
+            this.txtSaldo.Location = new System.Drawing.Point(150, 165);
+            this.txtSaldo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtSaldo.Name = "txtSaldo";
             this.txtSaldo.ReadOnly = true;
-            this.txtSaldo.Size = new System.Drawing.Size(150, 20);
+            this.txtSaldo.Size = new System.Drawing.Size(223, 26);
             this.txtSaldo.TabIndex = 6;
             // 
             // txtMonto
             // 
-            this.txtMonto.Location = new System.Drawing.Point(240, 175);
+            this.txtMonto.Location = new System.Drawing.Point(360, 269);
+            this.txtMonto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtMonto.Name = "txtMonto";
-            this.txtMonto.Size = new System.Drawing.Size(110, 20);
+            this.txtMonto.Size = new System.Drawing.Size(163, 26);
             this.txtMonto.TabIndex = 10;
             // 
             // cmbTipo
@@ -88,16 +92,18 @@
             this.cmbTipo.Items.AddRange(new object[] {
             "CREDITO",
             "DEBITO"});
-            this.cmbTipo.Location = new System.Drawing.Point(100, 175);
+            this.cmbTipo.Location = new System.Drawing.Point(150, 269);
+            this.cmbTipo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbTipo.Name = "cmbTipo";
-            this.cmbTipo.Size = new System.Drawing.Size(120, 21);
+            this.cmbTipo.Size = new System.Drawing.Size(178, 28);
             this.cmbTipo.TabIndex = 9;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(240, 46);
+            this.btnBuscar.Location = new System.Drawing.Point(360, 71);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(110, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(165, 35);
             this.btnBuscar.TabIndex = 7;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -105,11 +111,12 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(78)))), ((int)(((byte)(121)))));
-            this.btnAgregar.ForeColor = System.Drawing.Color.White;
-            this.btnAgregar.Location = new System.Drawing.Point(100, 210);
+            this.btnAgregar.BackColor = System.Drawing.Color.White;
+            this.btnAgregar.ForeColor = System.Drawing.Color.Black;
+            this.btnAgregar.Location = new System.Drawing.Point(150, 323);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(100, 25);
+            this.btnAgregar.Size = new System.Drawing.Size(150, 38);
             this.btnAgregar.TabIndex = 11;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = false;
@@ -117,9 +124,10 @@
             // 
             // btnListar
             // 
-            this.btnListar.Location = new System.Drawing.Point(210, 210);
+            this.btnListar.Location = new System.Drawing.Point(315, 323);
+            this.btnListar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnListar.Name = "btnListar";
-            this.btnListar.Size = new System.Drawing.Size(140, 25);
+            this.btnListar.Size = new System.Drawing.Size(210, 38);
             this.btnListar.TabIndex = 12;
             this.btnListar.Text = "Ver Movimientos";
             this.btnListar.UseVisualStyleBackColor = true;
@@ -127,18 +135,20 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(12, 420);
+            this.btnLimpiar.Location = new System.Drawing.Point(18, 646);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(80, 25);
+            this.btnLimpiar.Size = new System.Drawing.Size(120, 38);
             this.btnLimpiar.TabIndex = 14;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(272, 420);
+            this.btnCerrar.Location = new System.Drawing.Point(408, 646);
+            this.btnCerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(80, 25);
+            this.btnCerrar.Size = new System.Drawing.Size(120, 38);
             this.btnCerrar.TabIndex = 15;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
@@ -151,59 +161,12 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            this.dgvMovimientos.Location = new System.Drawing.Point(12, 250);
+            this.dgvMovimientos.Location = new System.Drawing.Point(18, 385);
+            this.dgvMovimientos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvMovimientos.Name = "dgvMovimientos";
             this.dgvMovimientos.RowTemplate.Height = 21;
-            this.dgvMovimientos.Size = new System.Drawing.Size(340, 150);
+            this.dgvMovimientos.Size = new System.Drawing.Size(510, 231);
             this.dgvMovimientos.TabIndex = 13;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(12, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Gestionar Movimientos";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "N° Cuenta:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 80);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Titular:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 110);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Saldo actual:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(12, 150);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(121, 15);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Agregar Movimiento";
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -225,11 +188,64 @@
             this.dataGridViewTextBoxColumn4.HeaderText = "Tipo";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.Location = new System.Drawing.Point(18, 18);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(171, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Gestionar Movimientos";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 77);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 20);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "N° Cuenta:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 123);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 20);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Titular:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 169);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(101, 20);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Saldo actual:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label5.Location = new System.Drawing.Point(18, 231);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(150, 20);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Agregar Movimiento";
+            // 
             // GuiMovimientos1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 461);
+            this.ClientSize = new System.Drawing.Size(546, 709);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.dgvMovimientos);
@@ -247,6 +263,7 @@
             this.Controls.Add(this.txtNumero);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GuiMovimientos1";

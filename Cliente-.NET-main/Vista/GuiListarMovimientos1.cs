@@ -20,6 +20,8 @@ namespace WayBankClient.Vista
         {
             InitializeComponent();
             servicio = ServicePeticiones.GetInstance();
+            servicio.OnMovimientosActualizados += RecargarMovimientos;
+
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -84,6 +86,47 @@ namespace WayBankClient.Vista
             dgvMovimientos.Rows.Clear();
             lblStatus.Text = "";
             cuentaActual = null;
+        }
+
+        private void RecargarMovimientos()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(RecargarMovimientos));
+                return;
+            }
+
+           
+            if (cuentaActual != null)
+            {
+                List<MovimientoDto> movimientos =
+                    servicio.ListarMovimientos(
+                        cuentaActual.NumeroCuenta
+                    );
+
+                dgvMovimientos.Rows.Clear();
+
+                foreach (var m in movimientos)
+                {
+                    dgvMovimientos.Rows.Add(
+                        m.Id,
+                        m.FechaMovimiento.ToString("yyyy-MM-dd HH:mm"),
+                        m.Monto.ToString("N2"),
+                        m.Tipo
+                    );
+                }
+
+                lblStatus.Text =
+                    $"{movimientos.Count} movimiento(s)";
+            }
+        }
+
+        protected override void OnFormClosed(
+    FormClosedEventArgs e)
+        {
+            servicio.OnMovimientosActualizados -= RecargarMovimientos;
+
+            base.OnFormClosed(e);
         }
     }
 }

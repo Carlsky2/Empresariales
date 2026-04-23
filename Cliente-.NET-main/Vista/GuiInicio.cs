@@ -61,8 +61,7 @@ namespace WayBankClient.Vista
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Desarrollado por Carlos, Jaider y Santiago!!! Ver 0.0.2 ", "Acerca de",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Desarrollado por Carlos, Jaider y Santiago!!! Ver 0.0.2 ", "Acerca de", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

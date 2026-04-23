@@ -1,4 +1,6 @@
 using RestSharp;
+using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using WayBankClient.model;
@@ -9,11 +11,28 @@ namespace WayBankClient.service
     {
         private static ServicePeticiones instance;
         private readonly RestClient client;
-
+        public event Action OnCuentasActualizadas;
+        public event Action OnMovimientosActualizados;
+        private Timer pollingTimer;
         private ServicePeticiones()
         {
             var options = new RestClientOptions("http://localhost:8080/cuentas");
             client = new RestClient(options);
+            // Start a polling timer that notifies subscribers every 2 seconds.
+            // Use a 2 second due time so subscribers have a short window to subscribe after creation.
+            pollingTimer = new Timer(PollingCallback, null, 2000, 2000);
+        }
+
+        private void PollingCallback(object state)
+        {
+            try
+            {
+                NotificarCambios();
+            }
+            catch
+            {
+                // Swallow exceptions to keep the timer running.
+            }
         }
 
         public static ServicePeticiones GetInstance()
@@ -159,6 +178,13 @@ namespace WayBankClient.service
             var request = new RestRequest($"/{numeroCuenta}/movimientos", Method.Get);
             var response = client.Get<List<MovimientoDto>>(request);
             return response ?? new List<MovimientoDto>();
+        }
+
+        
+        public void NotificarCambios()
+        {
+            OnCuentasActualizadas?.Invoke();
+            OnMovimientosActualizados?.Invoke();
         }
     }
 }

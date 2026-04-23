@@ -110,6 +110,7 @@ namespace WayBankClient
 
                 if (creado)
                 {
+                    service.NotificarCambios();
                     MessageBox.Show("Cuenta creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();
                 }
