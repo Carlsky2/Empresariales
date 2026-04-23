@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Agregar Movimiento</title>
+  <style>
+    body { font-family: Arial; background: #F4F6FA; padding: 20px; }
+    h2 { color: #1F4E79; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 10px; }
+    button { background: #1B8A5A; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+    button:hover { background: #2AA373; }
+    .btn-sec { background: #666; }
+  </style>
+</head>
+<body>
+  <h2>Agregar Movimiento</h2>
+  <label>Número de cuenta:</label>
+  <input type="number" id="numero" placeholder="Número">
+  <button onclick="buscarcuenta()">Buscar cuenta</button>
+  
+  <div id="cuenta-info" style="display:none; background: #e8f4fd; padding: 10px; margin: 10px 0;"></div>
+  
+  <div id="form" style="display:none;">
+    <label>Tipo:</label>
+    <select id="tipo">
+      <option value="CREDITO">Depósito (Crédito)</option>
+      <option value="DEBITO">Retiro (Débito)</option>
+    </select>
+    <label>Monto:</label>
+    <input type="number" id="monto" placeholder="Monto">
+    <button onclick="agregar()">Agregar</button>
+  </div>
+  
+  <p id="resultado"></p>
+
+  <script>
+    let cuentaActual = null;
+    if (window.api.onNotificacion) {
+      window.api.onNotificacion(function(data) {
+        const nota = document.createElement('div');
+        nota.style = 'background: #d4edda; padding: 5px; margin: 5px 0; border-radius: 3px; font-size: 12px;';
+        nota.textContent = '[' + data.evento + '] ' + JSON.stringify(data.data);
+        document.body.appendChild(nota);
+      });
+    }
+    async function buscarcuenta() {
+      const n = document.getElementById('numero').value;
+      if (!n) { document.getElementById('resultado').textContent = 'Ingrese número'; return; }
+      try {
+        const r = await window.api.buscarCuenta(parseInt(n));
+        if (r.success && r.data) {
+          cuentaActual = r.data;
+          document.getElementById('cuenta-info').innerHTML = r.data.titular + ' - Saldo: $' + r.data.saldo;
+          document.getElementById('cuenta-info').style.display = 'block';
+          document.getElementById('form').style.display = 'block';
+        } else {
+          document.getElementById('resultado').textContent = '✗ ' + (r.error || 'Cuenta no encontrada');
+        }
+      } catch(e) { document.getElementById('resultado').textContent = '✗ Error: ' + e.message; }
+    }
+    async function agregar() {
+      if (!cuentaActual || !document.getElementById('monto').value) { document.getElementById('resultado').textContent = 'Ingrese monto'; return; }
+      try {
+        const m = {
+          cuentaNumero: cuentaActual.numeroCuenta,
+          monto: parseFloat(document.getElementById('monto').value),
+          tipo: document.getElementById('tipo').value,
+          fecha: new Date().toISOString()
+        };
+        const r = await window.api.agregarMovimiento(cuentaActual.numeroCuenta, m.monto, m.tipo);
+        if (r.success) {
+          document.getElementById('resultado').textContent = '✓ Movimiento agregado';
+          document.getElementById('monto').value = '';
+        } else {
+          document.getElementById('resultado').textContent = '✗ ' + (r.error || 'Error');
+        }
+      } catch(e) { document.getElementById('resultado').textContent = '✗ Error: ' + e.message; }
+    }
+    // ============== OBSERVER PATTERN ==============
+    window.api.onActualizacion((evt) => {
+      if (cuentaActual && evt.data && evt.data.numero === cuentaActual.numeroCuenta) {
+        document.getElementById('cuenta-info').innerHTML = cuentaActual.titular + ' - Saldo actualizado';
+      }
+    });
+  </script>
+</body>
+</html>

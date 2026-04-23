@@ -1,0 +1,25 @@
+{
+  "name": "waybank-electron",
+  "version": "1.0.0",
+  "description": "Cliente WayBank - Segundo Proyecto Microservicios",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "Carlos Gil, Jaider Clavijo, Santiago Lozano",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.0"
+  },
+  "build": {
+    "appId": "com.waybank.client",
+    "productName": "WayBank",
+    "mac": {
+      "category": "public.app-category.finance"
+    }
+  }
+}

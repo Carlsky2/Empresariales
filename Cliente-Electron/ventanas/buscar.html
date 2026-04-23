@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar Cuenta</title>
+  <style>
+    body { font-family: Arial; background: #F4F6FA; padding: 20px; }
+    h2 { color: #1F4E79; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 10px; }
+    button { background: #1F4E79; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+    button:hover { background: #2E6BAA; }
+    .btn-sec { background: #666; }
+  </style>
+</head>
+<body>
+  <h2>Buscar Cuenta</h2>
+  <label>Número:</label>
+  <input type="number" id="numero" placeholder="Número de cuenta">
+  <button onclick="buscar()">Buscar</button>
+  <button class="btn-sec" onclick="window.close()">Cerrar</button>
+  <p id="resultado"></p>
+  <p id="debug"></p>
+
+<script>
+    // ============== OBSERVER PATTERN ==============
+    // La ventana escucha notificaciones del main process
+    if (window.api.onNotificacion) {
+      window.api.onNotificacion(function(data) {
+        const nota = document.createElement('div');
+        nota.style = 'background: #d4edda; padding: 5px; margin: 5px 0; border-radius: 3px; font-size: 12px;';
+        nota.textContent = '[' + data.evento + '] ' + JSON.stringify(data.data);
+        document.body.appendChild(nota);
+      });
+    }
+    
+    async function buscar() {
+      const n = document.getElementById('numero').value;
+      if (!n) { document.getElementById('resultado').textContent = 'Ingrese número'; return; }
+      try {
+        const r = await window.api.buscarCuenta(parseInt(n));
+        if (r.success && r.data) {
+          document.getElementById('resultado').innerHTML = 
+            '✓ ' + r.data.numeroCuenta + '<br>' + r.data.titular + '<br>$' + r.data.saldo + '<br>' + r.data.estado;
+        } else {
+          document.getElementById('resultado').textContent = '✗ ' + (r.error || 'Cuenta no encontrada');
+        }
+      } catch(e) { document.getElementById('resultado').textContent = '✗ Error: ' + e.message; }
+    }
+  </script>
+</body>
+</html>

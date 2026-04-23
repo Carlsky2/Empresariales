@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ver Movimientos</title>
+  <style>
+    body { font-family: Arial; background: #F4F6FA; padding: 20px; }
+    h2 { color: #1F4E79; }
+    input { padding: 8px; margin-right: 10px; }
+    button { background: #1F4E79; color: white; padding: 8px 15px; border: none; cursor: pointer; }
+    button:hover { background: #2E6BAA; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+    th { background: #1F4E79; color: white; }
+  </style>
+</head>
+<body>
+  <h2>Ver Historial de Movimientos</h2>
+  <input type="number" id="numero" placeholder="Número de cuenta">
+  <button onclick="listar()">Ver</button>
+  <table>
+    <thead><tr><th>ID</th><th>Fecha</th><th>Monto</th><th>Tipo</th></tr></thead>
+    <tbody id="tabla"></tbody>
+  </table>
+
+  <script>
+    if (window.api.onNotificacion) {
+      window.api.onNotificacion(function(data) {
+        const nota = document.createElement('div');
+        nota.style = 'background: #d4edda; padding: 5px; margin: 5px 0; border-radius: 3px; font-size: 12px;';
+        nota.textContent = '[' + data.evento + '] ' + JSON.stringify(data.data);
+        document.body.appendChild(nota);
+      });
+    }
+    async function listar() {
+      const n = document.getElementById('numero').value;
+      if (!n) { alert('Ingrese número'); return; }
+      try {
+        const r = await window.api.listarMovimientos(parseInt(n));
+        const tbody = document.getElementById('tabla');
+        if (r.success && r.data && r.data.length) {
+          tbody.innerHTML = r.data.map(m => 
+            '<tr><td>' + m.id + '</td><td>' + new Date(m.fechaMovimiento).toLocaleString() + '</td><td>$' + m.monto + '</td><td>' + m.tipo + '</td></tr>'
+          ).join('');
+        } else {
+          tbody.innerHTML = '<tr><td colspan="4">Sin movimientos</td></tr>';
+        }
+      } catch(e) { alert('Error: ' + e.message); }
+    }
+    // ============== OBSERVER PATTERN ==============
+    window.api.onActualizacion((evt) => {
+      if (evt.data && evt.data.numero == document.getElementById('numero').value) {
+        listar();
+      }
+    });
+  </script>
+</body>
+</html>

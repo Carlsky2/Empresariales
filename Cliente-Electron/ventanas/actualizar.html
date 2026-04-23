@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Actualizar Cuenta</title>
+  <style>
+    body { font-family: Arial; background: #F4F6FA; padding: 20px; }
+    h2 { color: #1F4E79; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; }
+    input { width: 100%; padding: 8px; box-sizing: border-box; margin-bottom: 10px; }
+    button { background: #1F4E79; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+    button:hover { background: #2E6BAA; }
+    .btn-sec { background: #666; }
+  </style>
+</head>
+<body>
+  <h2>Actualizar Cuenta</h2>
+  <label>Número a buscar:</label>
+  <input type="number" id="buscar" placeholder="Número">
+  <button onclick="buscar()">Buscar</button>
+  <div id="datos" style="display:none;">
+    <label>Nuevo titular:</label>
+    <input type="text" id="titular">
+    <label>Nuevo saldo:</label>
+    <input type="number" id="saldo">
+    <button onclick="actualizar()">Actualizar</button>
+  </div>
+  <p id="resultado"></p>
+
+  <script>
+    let cuentaActual = null;
+    if (window.api.onNotificacion) {
+      window.api.onNotificacion(function(data) {
+        const nota = document.createElement('div');
+        nota.style = 'background: #d4edda; padding: 5px; margin: 5px 0; border-radius: 3px; font-size: 12px;';
+        nota.textContent = '[' + data.evento + '] ' + JSON.stringify(data.data);
+        document.body.appendChild(nota);
+      });
+    }
+    async function buscar() {
+      const n = document.getElementById('buscar').value;
+      if (!n) return;
+      try {
+        const r = await window.api.buscarCuenta(parseInt(n));
+        if (r.success && r.data) {
+          cuentaActual = r.data;
+          document.getElementById('titular').value = r.data.titular;
+          document.getElementById('saldo').value = r.data.saldo;
+          document.getElementById('datos').style.display = 'block';
+        } else {
+          document.getElementById('resultado').textContent = '✗ No encontrada';
+        }
+      } catch(e) { document.getElementById('resultado').textContent = '✗ ' + e.message; }
+    }
+    async function actualizar() {
+      if (!cuentaActual) return;
+      const c = {
+        numeroCuenta: cuentaActual.numeroCuenta,
+        titular: document.getElementById('titular').value,
+        saldo: parseFloat(document.getElementById('saldo').value),
+        tasaInteres: cuentaActual.tasaInteres,
+        estado: cuentaActual.estado,
+        fechaApertura: cuentaActual.fechaApertura
+      };
+      try {
+        const r = await window.api.actualizarCuenta(cuentaActual.numeroCuenta, c);
+        document.getElementById('resultado').textContent = r.success ? '✓ Actualizada' : '✗ ' + r.error;
+      } catch(e) { document.getElementById('resultado').textContent = '✗ ' + e.message; }
+    }
+  </script>
+</body>
+</html>
