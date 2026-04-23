@@ -88,7 +88,7 @@ namespace WayBankClient.service
 
         public List<CuentaAhorrosDto> ListarCuentas()
         {
-            var request = new RestRequest("", Method.Get);
+            var request = new RestRequest("/cuentas", Method.Get);
             var response = client.Get<List<CuentaAhorrosDto>>(request);
             return response ?? new List<CuentaAhorrosDto>();
         }
