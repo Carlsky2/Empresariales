@@ -19,9 +19,35 @@ namespace WayBankClient.Vista
         public GuiListarMovimientos1()
         {
             InitializeComponent();
-            servicio = ServicePeticiones.GetInstance();
-            servicio.OnMovimientosActualizados += RecargarMovimientos;
 
+            servicio = ServicePeticiones.GetInstance();
+
+            servicio.OnMovimientosActualizados +=
+                RecargarMovimientos;
+
+            CargarMovimientosGlobales();
+        }
+
+        private void CargarMovimientosGlobales()
+        {
+            dgvMovimientos.Rows.Clear();
+
+            List<MovimientoDto> movimientos =
+                servicio.ListarTodosMovimientos();
+
+            foreach (var m in movimientos)
+            {
+                dgvMovimientos.Rows.Add(
+                    m.Id,
+                    m.FechaMovimiento.ToString(
+                        "yyyy-MM-dd HH:mm"),
+                    m.Monto.ToString("N2"),
+                    m.Tipo
+                );
+            }
+
+            lblStatus.Text =
+                $"{movimientos.Count} movimientos globales";
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -96,29 +122,38 @@ namespace WayBankClient.Vista
                 return;
             }
 
-           
-            if (cuentaActual != null)
+            dgvMovimientos.Rows.Clear();
+
+            List<MovimientoDto> movimientos;
+
+            // GLOBAL
+            if (cuentaActual == null)
             {
-                List<MovimientoDto> movimientos =
+                movimientos =
+                    servicio.ListarTodosMovimientos();
+            }
+            else
+            {
+                // CUENTA ESPECÍFICA
+                movimientos =
                     servicio.ListarMovimientos(
                         cuentaActual.NumeroCuenta
                     );
-
-                dgvMovimientos.Rows.Clear();
-
-                foreach (var m in movimientos)
-                {
-                    dgvMovimientos.Rows.Add(
-                        m.Id,
-                        m.FechaMovimiento.ToString("yyyy-MM-dd HH:mm"),
-                        m.Monto.ToString("N2"),
-                        m.Tipo
-                    );
-                }
-
-                lblStatus.Text =
-                    $"{movimientos.Count} movimiento(s)";
             }
+
+            foreach (var m in movimientos)
+            {
+                dgvMovimientos.Rows.Add(
+                    m.Id,
+                    m.FechaMovimiento.ToString(
+                        "yyyy-MM-dd HH:mm"),
+                    m.Monto.ToString("N2"),
+                    m.Tipo
+                );
+            }
+
+            lblStatus.Text =
+                $"{movimientos.Count} movimiento(s)";
         }
 
         protected override void OnFormClosed(
@@ -127,6 +162,17 @@ namespace WayBankClient.Vista
             servicio.OnMovimientosActualizados -= RecargarMovimientos;
 
             base.OnFormClosed(e);
+        }
+
+        private void btnTodos_Click(object sender, EventArgs e)
+        {
+            cuentaActual = null;
+
+            txtNumero.Clear();
+            txtTitular.Clear();
+            txtSaldo.Clear();
+
+            CargarMovimientosGlobales();
         }
     }
 }

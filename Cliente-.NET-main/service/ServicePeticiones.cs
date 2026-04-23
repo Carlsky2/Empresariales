@@ -174,6 +174,17 @@ namespace WayBankClient.service
             }
         }
 
+        public List<MovimientoDto> ListarTodosMovimientos()
+        {
+            var request =
+                new RestRequest("/movimientos", Method.Get);
+
+            var response =
+                client.Get<List<MovimientoDto>>(request);
+
+            return response ?? new List<MovimientoDto>();
+        }
+
         public List<MovimientoDto> ListarMovimientos(int numeroCuenta)
         {
             var request = new RestRequest($"/{numeroCuenta}/movimientos", Method.Get);
