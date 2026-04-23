@@ -115,6 +115,8 @@ class ApiService extends IApiService {
   eliminar(numero) { return this.request('DELETE', '/' + numero); }
   agregarMovimiento(numero, datos) { return this.request('POST', '/' + numero + '/movimientos', datos); }
   listarMovimientos(numero) { return this.request('GET', '/' + numero + '/movimientos'); }
+  listarTodosMovimientos() {return this.request('GET', '/movimientos');
+}
 }
 
 // ============== SINGLE RESPONSIBILITY ==============
@@ -130,9 +132,26 @@ class CuentaRepository extends ICuentaRepository {
 }
 
 class MovimientoRepository extends IMovimientoRepository {
-  constructor(api) { super(); this.api = api; }
-  agregar(n, monto, tipo) { return this.api.agregarMovimiento(n, { monto, tipo }); }
-  listar(n) { return this.api.listarMovimientos(n); }
+
+  constructor(api) {
+    super();
+    this.api = api;
+  }
+
+  agregar(n, monto, tipo) {
+    return this.api.agregarMovimiento(
+      n,
+      { monto, tipo }
+    );
+  }
+
+  listar(n) {
+    return this.api.listarMovimientos(n);
+  }
+
+  listarTodos() {
+    return this.api.listarTodosMovimientos();
+  }
 }
 
 // ============== OPEN/CLOSED ==============
@@ -159,13 +178,32 @@ class CuentaService {
 }
 
 class MovimientoService {
-  constructor(repo, observer) { this.repo = repo; this.observer = observer; }
+
+  constructor(repo, observer) {
+    this.repo = repo;
+    this.observer = observer;
+  }
+
   agregar(n, monto, tipo) {
-    const result = this.repo.agregar(n, monto, tipo);
-    this.observer.notificar('MOVIMIENTO_AGREGADO', { numero: n, monto, tipo });
+
+    const result =
+      this.repo.agregar(n, monto, tipo);
+
+    this.observer.notificar(
+      'MOVIMIENTO_AGREGADO',
+      { numero: n, monto, tipo }
+    );
+
     return result;
   }
-  listar(n) { return this.repo.listar(n); }
+
+  listar(n) {
+    return this.repo.listar(n);
+  }
+
+  listarTodos() {
+    return this.repo.listarTodos();
+  }
 }
 
 // ============== LISKOV SUBSTITUTION ==============
@@ -235,6 +273,7 @@ ipcMain.handle('actualizar-cuenta', (e, n, c) => cuentaSvc.actualizar(n, c));
 ipcMain.handle('eliminar-cuenta', (e, n) => cuentaSvc.eliminar(n));
 ipcMain.handle('agregar-movimiento', (e, n, m, t) => movSvc.agregar(n, m, t));
 ipcMain.handle('listar-movimientos', (e, n) => movSvc.listar(n));
+ipcMain.handle( 'listar-todos-movimientos',  () => movSvc.listarTodos());
 
 app.whenReady().then(iniciar);
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
