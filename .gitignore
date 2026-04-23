@@ -1,5 +1,4 @@
 .DS_Store
-.claude
 Cliente-Electron/node_modules/
 bin/
 obj/
