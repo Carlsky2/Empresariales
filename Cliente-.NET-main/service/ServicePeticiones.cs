@@ -73,7 +73,7 @@ namespace WayBankClient.service
 
         public bool CrearCuenta(CuentaAhorrosDto cuenta)
         {
-            var request = new RestRequest("/cuentas", Method.Post);
+            var request = new RestRequest("", Method.Post);
             request.AddJsonBody(cuenta);
             var response = client.Execute(request);
 
