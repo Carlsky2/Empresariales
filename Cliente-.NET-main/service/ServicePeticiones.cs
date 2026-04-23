@@ -20,8 +20,7 @@ namespace WayBankClient.service
         {
             var options = new RestClientOptions("http://localhost:8080/cuentas");
             client = new RestClient(options);
-            // Start a polling timer that notifies subscribers every 2 seconds.
-            // Use a 2 second due time so subscribers have a short window to subscribe after creation.
+            
             pollingTimer = new System.Threading.Timer(PollingCallback, null, 2000, 2000);
         }
 
@@ -33,7 +32,7 @@ namespace WayBankClient.service
             }
             catch
             {
-                // Swallow exceptions to keep the timer running.
+                
             }
         }
 

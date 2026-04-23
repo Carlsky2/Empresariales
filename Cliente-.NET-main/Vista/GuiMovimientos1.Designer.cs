@@ -35,20 +35,13 @@
             this.cmbTipo = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnListar = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
-            this.dgvMovimientos = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtNumero
@@ -92,7 +85,7 @@
             this.cmbTipo.Items.AddRange(new object[] {
             "CREDITO",
             "DEBITO"});
-            this.cmbTipo.Location = new System.Drawing.Point(150, 269);
+            this.cmbTipo.Location = new System.Drawing.Point(13, 267);
             this.cmbTipo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbTipo.Name = "cmbTipo";
             this.cmbTipo.Size = new System.Drawing.Size(178, 28);
@@ -113,7 +106,7 @@
             // 
             this.btnAgregar.BackColor = System.Drawing.Color.White;
             this.btnAgregar.ForeColor = System.Drawing.Color.Black;
-            this.btnAgregar.Location = new System.Drawing.Point(150, 323);
+            this.btnAgregar.Location = new System.Drawing.Point(375, 318);
             this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(150, 38);
@@ -122,71 +115,15 @@
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // btnListar
-            // 
-            this.btnListar.Location = new System.Drawing.Point(315, 323);
-            this.btnListar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnListar.Name = "btnListar";
-            this.btnListar.Size = new System.Drawing.Size(210, 38);
-            this.btnListar.TabIndex = 12;
-            this.btnListar.Text = "Ver Movimientos";
-            this.btnListar.UseVisualStyleBackColor = true;
-            this.btnListar.Click += new System.EventHandler(this.btnListar_Click);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(18, 646);
-            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(120, 38);
-            this.btnLimpiar.TabIndex = 14;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
             // btnCerrar
             // 
-            this.btnCerrar.Location = new System.Drawing.Point(408, 646);
+            this.btnCerrar.Location = new System.Drawing.Point(403, 385);
             this.btnCerrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(120, 38);
             this.btnCerrar.TabIndex = 15;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            // 
-            // dgvMovimientos
-            // 
-            this.dgvMovimientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMovimientos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.dgvMovimientos.Location = new System.Drawing.Point(18, 385);
-            this.dgvMovimientos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.dgvMovimientos.Name = "dgvMovimientos";
-            this.dgvMovimientos.RowTemplate.Height = 21;
-            this.dgvMovimientos.Size = new System.Drawing.Size(510, 231);
-            this.dgvMovimientos.TabIndex = 13;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Fecha";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Monto";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Tipo";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
             // label1
             // 
@@ -241,15 +178,22 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Agregar Movimiento";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(276, 275);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 20);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Cantidad:";
+            // 
             // GuiMovimientos1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 709);
+            this.ClientSize = new System.Drawing.Size(546, 437);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnCerrar);
-            this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.dgvMovimientos);
-            this.Controls.Add(this.btnListar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.txtMonto);
             this.Controls.Add(this.cmbTipo);
@@ -269,7 +213,6 @@
             this.Name = "GuiMovimientos1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gestionar Movimientos";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,13 +232,7 @@
         private System.Windows.Forms.ComboBox cmbTipo;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.Button btnListar;
-        private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnCerrar;
-        private System.Windows.Forms.DataGridView dgvMovimientos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.Label label6;
     }
 }

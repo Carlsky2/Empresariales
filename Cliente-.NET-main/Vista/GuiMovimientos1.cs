@@ -77,7 +77,7 @@ namespace WayBankClient.Vista
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnBuscar_Click(sender, e);
                 servicio.NotificarCambios();
-                ListarMovimientos();
+                
                 txtMonto.Clear();
             }
             else
@@ -87,28 +87,9 @@ namespace WayBankClient.Vista
             }
         }
 
-        private void btnListar_Click(object sender, EventArgs e)
-        {
-            ListarMovimientos();
-        }
+        
 
-        private void ListarMovimientos()
-        {
-            if (cuentaActual == null) return;
-
-            List<MovimientoDto> movimientos = servicio.ListarMovimientos(cuentaActual.NumeroCuenta);
-            dgvMovimientos.Rows.Clear();
-
-            foreach (var m in movimientos)
-            {
-                dgvMovimientos.Rows.Add(
-                    m.Id,
-                    m.FechaMovimiento.ToString("yyyy-MM-dd HH:mm"),
-                    m.Monto.ToString("N2"),
-                    m.Tipo
-                );
-            }
-        }
+        
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
@@ -121,7 +102,7 @@ namespace WayBankClient.Vista
             txtTitular.Clear();
             txtSaldo.Clear();
             txtMonto.Clear();
-            dgvMovimientos.Rows.Clear();
+            
             cuentaActual = null;
         }
 
