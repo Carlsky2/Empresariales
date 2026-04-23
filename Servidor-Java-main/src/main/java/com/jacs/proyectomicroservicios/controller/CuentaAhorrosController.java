@@ -29,6 +29,13 @@ public class CuentaAhorrosController implements ICuentaAhorrosController {
         return ResponseEntity.ok("Servicio CuentaAhorros Ok!");
     }
 
+    @GetMapping("/movimientos")
+    public ResponseEntity<List<Movimiento>> listarTodosMovimientos() {
+        return ResponseEntity.ok(
+                service.listarTodosMovimientos()
+        );
+    }
+
     // POST /cuentas  → Insertar
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody CuentaAhorros cuenta) {

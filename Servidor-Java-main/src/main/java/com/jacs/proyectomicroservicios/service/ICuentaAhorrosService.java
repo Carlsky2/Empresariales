@@ -24,4 +24,6 @@ public interface ICuentaAhorrosService {
     boolean eliminar(int numeroCuenta);
 
     CuentaAhorros actualizar(int numeroCuenta, CuentaAhorros datos);
+
+    List<Movimiento> listarTodosMovimientos();
 }

@@ -17,6 +17,10 @@ public class CuentaAhorrosService implements ICuentaAhorrosService {
 
     private static CuentaAhorrosService cuentaService;
 
+    private final List<Movimiento> movimientosGlobales = new ArrayList<>();
+    private int nextMovimientoId = 1;
+
+
     private CuentaAhorrosService() {
     }
 
@@ -58,30 +62,43 @@ public class CuentaAhorrosService implements ICuentaAhorrosService {
     }
 
     @Override
-    public Movimiento agregarMovimiento(int numeroCuenta, Movimiento datos) {
-        CuentaAhorros cuenta = buscarPorNumero(numeroCuenta);
-
-        int nextId = cuenta.getMovimientos()
-                .stream()
-                .mapToInt(Movimiento::getId)
-                .max()
-                .orElse(0) + 1;
+    public Movimiento agregarMovimiento(int numeroCuenta,
+                                        Movimiento datos)
+    {
+        CuentaAhorros cuenta =
+                buscarPorNumero(numeroCuenta);
 
         Movimiento movimiento = new Movimiento(
-                nextId,
+                nextMovimientoId++,
                 LocalDateTime.now(),
                 datos.getMonto(),
                 datos.getTipo(),
                 numeroCuenta
         );
 
+
         cuenta.getMovimientos().add(movimiento);
 
-        // Actualizar saldo según tipo de movimiento
+
+        movimientosGlobales.add(movimiento);
+
+
         if ("CREDITO".equalsIgnoreCase(datos.getTipo())) {
-            cuenta.setSaldo(cuenta.getSaldo() + datos.getMonto());
+
+            cuenta.setSaldo(
+                    cuenta.getSaldo() + datos.getMonto()
+            );
+
         } else if ("DEBITO".equalsIgnoreCase(datos.getTipo())) {
-            cuenta.setSaldo(cuenta.getSaldo() - datos.getMonto());
+
+            if (cuenta.getSaldo() < datos.getMonto()) {
+                throw new IllegalArgumentException(
+                        "Saldo insuficiente");
+            }
+
+            cuenta.setSaldo(
+                    cuenta.getSaldo() - datos.getMonto()
+            );
         }
 
         return movimiento;
@@ -132,6 +149,13 @@ public class CuentaAhorrosService implements ICuentaAhorrosService {
         }
 
         return false;
+    }
+    @Override
+    public List<Movimiento> listarTodosMovimientos() {
+
+        return movimientosGlobales.stream()
+                .sorted(Comparator.comparingInt(Movimiento::getId))
+                .collect(Collectors.toList());
     }
 
     @Override
