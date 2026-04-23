@@ -13,14 +13,16 @@ namespace WayBankClient.service
         private readonly RestClient client;
         public event Action OnCuentasActualizadas;
         public event Action OnMovimientosActualizados;
-        private Timer pollingTimer;
+        private System.Threading.Timer pollingTimer;
+        
+        
         private ServicePeticiones()
         {
             var options = new RestClientOptions("http://localhost:8080/cuentas");
             client = new RestClient(options);
             // Start a polling timer that notifies subscribers every 2 seconds.
             // Use a 2 second due time so subscribers have a short window to subscribe after creation.
-            pollingTimer = new Timer(PollingCallback, null, 2000, 2000);
+            pollingTimer = new System.Threading.Timer(PollingCallback, null, 2000, 2000);
         }
 
         private void PollingCallback(object state)
